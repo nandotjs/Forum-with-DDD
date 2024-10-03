@@ -1,4 +1,6 @@
 Forum app
 
 - Entidades
-- Casos de uso
+- Casos de uso e testes
+- Repositórios
+
