@@ -4,6 +4,7 @@ Forum app
    - Criar classe base para entidades
    - Criar Value Object para UUID
    - Criar getters e setters
-- Casos de uso e testes
+- Casos de uso
+   - Testes unitários (com inMemoryRepositories e factories)
 - Repositórios
 
