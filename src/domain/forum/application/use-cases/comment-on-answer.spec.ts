@@ -2,7 +2,6 @@ import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-r
 import { InMemoryAnswerCommentsRepository } from "test/repositories/in-memory-answer-comments-repository";
 import { CommentOnAnswerUseCase } from "./comment-on-answer";
 import { makeAnswer } from "test/factories/make-answer";
-import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository;
