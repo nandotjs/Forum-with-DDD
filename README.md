@@ -5,6 +5,9 @@ Forum app
    - Criar Value Object para UUID
    - Criar getters e setters
 - Casos de uso
-   - Testes unitários (com inMemoryRepositories e factories)
+   - Testes unitários 
 - Repositórios
+   - Repositorios de domínio
+   - Repositorios de testes (InMemory)
+   - Factories para entidades nos testes
 
