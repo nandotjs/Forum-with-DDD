@@ -11,3 +11,5 @@ Forum app
    - Repositorios de testes (InMemory)
    - Factories para entidades nos testes
 - Functional error handling
+- Aggregate Root
+- Watched List
