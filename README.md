@@ -10,4 +10,4 @@ Forum app
    - Repositorios de domínio
    - Repositorios de testes (InMemory)
    - Factories para entidades nos testes
-
+- Functional error handling
