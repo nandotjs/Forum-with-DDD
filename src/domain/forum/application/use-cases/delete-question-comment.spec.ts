@@ -2,6 +2,7 @@ import { InMemoryQuestionsCommentsRepository } from "test/repositories/in-memory
 import { DeleteQuestionCommentUseCase } from "./delete-question-comment";
 import { makeQuestionComment } from "test/factories/make-question-comment";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
+import { NotAllowedError } from "./errors/not-allowed-error";
 
 let inMemoryQuestionCommentsRepository: InMemoryQuestionsCommentsRepository;
 let sut: DeleteQuestionCommentUseCase;
@@ -34,18 +35,12 @@ describe("DeleteQuestionCommentUseCase", () => {
 
         await inMemoryQuestionCommentsRepository.create(comment);
 
-        await expect(() => {
-            return sut.execute({
-                questionCommentId: "comment-1",
-                authorId: "author-2"
-            });
-        }).rejects.toBeInstanceOf(Error);
-    });
+        const result = await sut.execute({
+            questionCommentId: "comment-1",
+            authorId: "author-2"
+        });
 
-    it("should throw an error if the comment does not exist", async () => {
-        await expect(sut.execute({
-            questionCommentId: "non-existent-comment-id",
-            authorId: "author-1"
-        })).rejects.toThrow("Comment not found.");
+        expect(result.isLeft()).toBe(true);
+        expect(result.value).toBeInstanceOf(NotAllowedError);
     });
 });

@@ -23,9 +23,9 @@ describe("FetchQuestionCommentsUseCase", () => {
             questionId: new UniqueEntityID("1"),
         }));
 
-        const { comments } = await sut.execute({ page: 1, questionId: "1" });
+        const result = await sut.execute({ page: 1, questionId: "1" });
         
-        expect(comments).toHaveLength(3);
+        expect(result.value?.comments).toHaveLength(3);
     });
 
     it("should fetch paginated question comments", async () => {
@@ -35,8 +35,8 @@ describe("FetchQuestionCommentsUseCase", () => {
             }));
         }
 
-        const { comments } = await sut.execute({ page: 2, questionId: "1" });
+        const result = await sut.execute({ page: 2, questionId: "1" });
         
-        expect(comments).toHaveLength(2);
+        expect(result.value?.comments).toHaveLength(2);
     });
 });

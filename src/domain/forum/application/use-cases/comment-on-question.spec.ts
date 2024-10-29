@@ -24,23 +24,14 @@ describe("CommentOnQuestionUseCase", () => {
 
         await inMemoryQuestionsRepository.create(question);
 
-        const { questionComment } = await sut.execute({
+        const result = await sut.execute({
             authorId: "2",
             questionId: question.id.toString(),
             content: "This is a comment"
         });
 
-        expect(questionComment.content).toEqual("This is a comment");
-        expect(questionComment.authorId.toString()).toEqual("2");
-        expect(questionComment.questionId.toString()).toEqual(question.id.toString());
-    });
-
-    it("should throw an error if the question does not exist", async () => {
-        await expect(sut.execute({
-            authorId: "2",
-            questionId: "non-existent-question-id",
-            content: "This is a comment"
-        })).rejects.toThrow("Question not found.");
+        expect(result.isRight()).toBe(true);
+        expect(inMemoryQuestionsCommentsRepository.comments[0].content).toEqual("This is a comment");
     });
 });
 

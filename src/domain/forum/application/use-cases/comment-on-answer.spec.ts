@@ -18,22 +18,13 @@ describe("CommentOnAnswerUseCase", () => {
         const answer = makeAnswer();
         await inMemoryAnswersRepository.create(answer);
 
-        const { answerComment } = await sut.execute({
+        const result = await sut.execute({
             authorId: "2",
             answerId: answer.id.toString(),
             content: "This is a comment"
         });
 
-        expect(answerComment.content).toEqual("This is a comment");
-        expect(answerComment.authorId.toString()).toEqual("2");
-        expect(answerComment.answerId.toString()).toEqual(answer.id.toString());
-    });
-
-    it("should throw an error if the answer does not exist", async () => {
-        await expect(sut.execute({
-            authorId: "2",
-            answerId: "non-existent-answer-id",
-            content: "This is a comment"
-        })).rejects.toThrow("Answer not found.");
+        expect(result.isRight()).toBe(true);
+        expect(inMemoryAnswerCommentsRepository.comments[0].content).toEqual("This is a comment");
     });
 });

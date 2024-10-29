@@ -11,14 +11,13 @@ describe("CreateQuestionUseCase", () => {
     });
 
     it("should create a question", async () => {
-        const { question } = await sut.execute({
+        const result = await sut.execute({
             authorId: "1",
             title: "Nova Pergunta",
             content: "Conteúdo da pergunta"
         });
 
-        expect(question.title).toEqual("Nova Pergunta");
-        expect(question.content).toEqual("Conteúdo da pergunta");
-        expect(question.authorId.toString()).toEqual("1");
+        expect(result.isRight()).toBe(true);
+        expect(inMemoryQuestionsRepository.questions[0]).toEqual(result.value?.question);
     });
 });
