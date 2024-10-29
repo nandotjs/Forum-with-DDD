@@ -23,7 +23,11 @@ describe("GetQuestionBySlugUseCase", () => {
             slug: "example-question"
         });
 
-        expect(result.value?.question.id).toBeTruthy();
-        expect(result.value?.question.title).toEqual(newQuestion.title);
+        if (result.isRight()) {
+            expect(result.value.question.id).toBeTruthy();
+            expect(result.value.question.title).toEqual(newQuestion.title);
+        } else {
+            throw new Error("Expected a successful result");
+        }
     });
 });
