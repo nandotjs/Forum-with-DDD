@@ -2,6 +2,7 @@ import { PaginationParams } from "@/core/repositories/pagination-params";
 import { AnswersRepository } from "../../src/domain/forum/application/repositories/answers-repository";
 import { Answer } from "../../src/domain/forum/enterprise/entities/answer";
 import { AnswerAttachmentsRepository } from "@/domain/forum/application/repositories/answer-attachments-repository";
+import { DomainEvents } from "@/core/events/domain-events";
 
 export class InMemoryAnswersRepository implements AnswersRepository {
     public answers: Answer[] = [];
@@ -10,6 +11,8 @@ export class InMemoryAnswersRepository implements AnswersRepository {
 
     async create(answer: Answer): Promise<void> {
         this.answers.push(answer);
+
+        DomainEvents.dispatchEventsForAggregate(answer.id)
     }
 
     async findById(id: string): Promise<Answer | null> {
@@ -30,6 +33,8 @@ export class InMemoryAnswersRepository implements AnswersRepository {
         }
 
         this.answers[answerIndex] = answer;
+
+        DomainEvents.dispatchEventsForAggregate(answer.id)
     }
 
     async delete(answer: Answer): Promise<void> {
