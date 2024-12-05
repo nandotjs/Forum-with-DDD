@@ -2,6 +2,7 @@ import { PaginationParams } from "@/core/repositories/pagination-params";
 import { QuestionsRepository } from "../../src/domain/forum/application/repositories/questions-repository";
 import { Question } from "../../src/domain/forum/enterprise/entities/question";
 import { QuestionAttachmentsRepository } from "@/domain/forum/application/repositories/question-attachments-repository";
+import { DomainEvents } from "@/core/events/domain-events";
 
 export class InMemoryQuestionsRepository implements QuestionsRepository {
     public questions: Question[] = [];
@@ -10,6 +11,9 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
 
     async create(question: Question): Promise<void> {
         this.questions.push(question);
+
+        DomainEvents.dispatchEventsForAggregate(question.id)
+
     }
 
     async findBySlug(slug: string): Promise<Question | null> {
@@ -40,6 +44,9 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
         }
 
         this.questions[questionIndex] = question;
+
+        DomainEvents.dispatchEventsForAggregate(question.id)
+
     }
     
     async delete(question: Question): Promise<void> {
