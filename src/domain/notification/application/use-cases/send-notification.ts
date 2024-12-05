@@ -4,12 +4,13 @@ import { Notification } from "../../enterprise/entities/notification";
 import { NotificationsRepository } from "../repositories/notifications-repository";
 
 
-interface SendNotificationRequest {
+export interface SendNotificationRequest {
     recipientId: string;
     title: string;
-    content: string;}
+    content: string;
+}
 
-type SendNotificationResponse = Either<
+export type SendNotificationResponse = Either<
     null,
     {
         notification: Notification;
